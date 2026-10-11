@@ -5,3 +5,4 @@ Each page covers one tag. Check out the tag, read the page, then run what it say
 | Step | Page |
 |---|---|
 | 00 | [The starting point](00-the-starting-point.md) |
+| 01 | [Onboard with Redline](01-onboard.md) |

@@ -21,6 +21,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | Step | Tag | Pull request | What you see |
 |---|---|---|---|
 | [00 · The starting point](docs/00-the-starting-point.md) | `step-00` | | A TypeScript service with tests and CI, before Redline |
+| [01 · Onboard with Redline](docs/01-onboard.md) | `step-01` | [#1](https://github.com/moelzanaty3/redline-demo/pull/1) | One command adds the rules, the review commands and a merge gate |
 
 ## What you need
 
