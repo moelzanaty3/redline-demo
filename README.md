@@ -22,6 +22,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 |---|---|---|---|
 | [00 · The starting point](docs/00-the-starting-point.md) | `step-00` | | A TypeScript service with tests and CI, before Redline |
 | [01 · Onboard with Redline](docs/01-onboard.md) | `step-01` | [#1](https://github.com/moelzanaty3/redline-demo/pull/1) | One command adds the rules, the review commands and a merge gate |
+| [02 · Your first finding](docs/02-first-finding.md) | `step-02` | [#2](https://github.com/moelzanaty3/redline-demo/pull/2) | Four broken rules, found on your machine and in the pipeline |
 
 ## What you need
 
@@ -65,4 +66,23 @@ git commit -m "docs: step 01, onboard with Redline"
 git push origin redline/onboard
 git tag -a step-01 -m "Step 01: onboard with Redline"
 git push origin step-01
+```
+
+### step-02 · Your first finding
+
+```bash
+git checkout -b step/02-first-finding redline/onboard
+# written by hand: src/user.ts (the four broken rules)
+pnpm test
+git add src/user.ts
+git commit -m "feat: load a user from JSON (breaks four Redline rules on purpose)"
+git push -u origin step/02-first-finding
+gh pr create --base redline/onboard --head step/02-first-finding --title "Step 02 · Your first finding"
+npx redlinegate@latest review --base redline/onboard
+# written by hand: docs/02-first-finding.md, README and docs/README.md rows, this entry
+git add docs README.md
+git commit -m "docs: step 02, your first finding"
+git push
+git tag -a step-02 -m "Step 02: your first finding"
+git push origin step-02
 ```
