@@ -1,6 +1,6 @@
 # 03 · Explain and fix
 
-**Tag:** `step-03` · **Pull request:** [#2](https://github.com/moelzanaty3/redline-demo/pull/2) (the second commit)
+**Tag:** `step-03` · **Pull request:** [#3](https://github.com/moelzanaty3/redline-demo/pull/3)
 
 A finding is only useful if you can find out why the rule exists. Ask Redline, then fix the code properly rather than silencing it.
 
@@ -73,6 +73,6 @@ profile tooling — rules in scope: core, typescript
 no findings
 ```
 
-In the pipeline, every check on [#2](https://github.com/moelzanaty3/redline-demo/pull/2) is now green, including **Deterministic policy**. The PR description gets its input-validation item back, ticked, because the code now validates.
+In the pipeline, every check on [#3](https://github.com/moelzanaty3/redline-demo/pull/3) is green, including **Deterministic policy**. The PR description has its input-validation item back, ticked, because the code now validates.
 
 **Next:** `git checkout step-04`, then read `docs/04-team-rule.md`.
