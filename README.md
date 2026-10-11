@@ -23,6 +23,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | [00 · The starting point](docs/00-the-starting-point.md) | `step-00` | | A TypeScript service with tests and CI, before Redline |
 | [01 · Onboard with Redline](docs/01-onboard.md) | `step-01` | [#1](https://github.com/moelzanaty3/redline-demo/pull/1) | One command adds the rules, the review commands and a merge gate |
 | [02 · Your first finding](docs/02-first-finding.md) | `step-02` | [#2](https://github.com/moelzanaty3/redline-demo/pull/2) | Four broken rules, found on your machine and in the pipeline |
+| [03 · Explain and fix](docs/03-explain-and-fix.md) | `step-03` | [#2](https://github.com/moelzanaty3/redline-demo/pull/2) | `explain` a rule, fix the code properly, and every check goes green |
 
 ## What you need
 
@@ -85,4 +86,23 @@ git commit -m "docs: step 02, your first finding"
 git push
 git tag -a step-02 -m "Step 02: your first finding"
 git push origin step-02
+```
+
+### step-03 · Explain and fix
+
+```bash
+npx redlinegate@latest explain core/unsafe-assertion
+# written by hand: src/user.ts (type predicate instead of assertions), src/user.test.ts
+pnpm test
+git add src
+npx redlinegate@latest review --base redline/onboard --staged
+git commit -m "fix: parse the payload into a User instead of asserting it"
+git push
+gh pr edit 2 --body-file <updated description>   # input-validation item restored and ticked
+# written by hand: docs/03-explain-and-fix.md, README and docs/README.md rows, this entry
+git add docs README.md
+git commit -m "docs: step 03, explain and fix"
+git push
+git tag -a step-03 -m "Step 03: explain and fix"
+git push origin step-03
 ```
