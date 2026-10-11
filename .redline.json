@@ -1,0 +1,70 @@
+{
+  "//": [
+    "Written by `redline init`. Edit with the command, not by hand — the next run rewrites this file.",
+    "menu.blockingGate — the gate blocks a merge rather than reporting. `redline init --blocking`.",
+    "menu.adrForLargeDiffs — a diff over the threshold needs an ADR link in the pull request body.",
+    "menu.accessibility — recorded for a later phase; nothing reads it yet.",
+    "menu.speckit — renders the spec-driven development context into the standards artifacts.",
+    "menu.tmf — renders the TM Forum context. `redline init --tmf` / `--no-tmf`.",
+    "menu.sensitivePathReviewers — writes CODEOWNERS and requires code-owner review on those paths.",
+    "capabilities.* — false means \"this repository has its own\"; Redline does not install or report it.",
+    "rung — how hard the gate bites: observe, warn, block-blocker, block-high. Promotion needs evidence.",
+    "pendingAdmin — capabilities an administrator still has to grant. Not a failure, a to-do list.",
+    "gateSource — org: the gate lives in the organisation .github repo. local: vendored into this",
+    "  repository, which means a pull request can edit the gate judging it. `--gate-source`.",
+    "gateVersion — the redlinegate version the vendored gate was written by. Empty when not vendored.",
+    "pipeline — what runs the pull request checks: github-actions or azure-pipelines. It decides which",
+    "  file is the gate here, so verify reads it back rather than assuming. `--pipeline`.",
+    "docsBaseUrl — where your copy of the standard is published. Set it and every finding carries",
+    "  the address of the rule it cites: <docsBaseUrl>/r/<rule-id>. Empty prints no link.",
+    "requiredApprovals — approving reviews a merge needs, 0 to 10. 0 leaves the merge to the pipeline.",
+    "  `redline init --approvals <n>`, or edit it and run `redline init --repair` to apply it.",
+    "commandFiles, standardsVersion, cliVersion, onboardedAt, lastRunAt — Redline's own bookkeeping."
+  ],
+  "standardsVersion": "0.2.1",
+  "cliVersion": "0.2.3",
+  "host": "github",
+  "pipeline": "github-actions",
+  "profile": "tooling",
+  "vendors": [
+    "copilot",
+    "agents",
+    "codex",
+    "claude",
+    "cursor"
+  ],
+  "menu": {
+    "blockingGate": false,
+    "adrForLargeDiffs": true,
+    "accessibility": false,
+    "speckit": true,
+    "tmf": false,
+    "sensitivePathReviewers": false
+  },
+  "capabilities": {
+    "gate": true,
+    "mergePolicy": true,
+    "labels": true
+  },
+  "integrations": [],
+  "pendingAdmin": [],
+  "onboardedAt": "2026-10-11T18:56:39.977Z",
+  "lastRunAt": "2026-10-11T18:56:39.979Z",
+  "localRules": false,
+  "commandFiles": {
+    ".github/prompts/redline-init.prompt.md": "sha256:c1835069c5779a1d4cc5992c92ff804b73da3440f1ea5bba221f0aaa84b4175d",
+    ".github/prompts/redline-review.prompt.md": "sha256:5760598534c9b003f9a53f6e86e91afe00d896f05fcb998684a3c8ad6fe7c1e7",
+    ".github/prompts/redline-verify.prompt.md": "sha256:20eb8351872ffe3b849a9a9b9bf00e6b51824a8c5150a1620aa7b174de9adba6",
+    ".claude/commands/redline-init.md": "sha256:0ac029377c855c60616b513dcd6ad88a194687a06dd84cfce146255f31921f02",
+    ".claude/commands/redline-review.md": "sha256:44ef7124390b30c8435a657529abdfd81488b703550f30f9840dfb11dc63256f",
+    ".claude/commands/redline-verify.md": "sha256:5efffdb4617359c55d7cc4b07f4a21b8ee67dc6c0542dabb3a7182ecf34bc948",
+    ".cursor/commands/redline-init.md": "sha256:b712aa235e797abcf28d297e14315d3a09d8763638274b497816592497a33cb0",
+    ".cursor/commands/redline-review.md": "sha256:7bca1bb7d0bd6e4ded6bcb7a75788c003a8978bdc095ba630e434d8f4129fa0f",
+    ".cursor/commands/redline-verify.md": "sha256:c541824adb98cdc0104c437dd9d4b1008a666679406d215f31eb2f551ce5a0b3"
+  },
+  "rung": "observe",
+  "gateSource": "local",
+  "gateVersion": "0.2.3",
+  "docsBaseUrl": "",
+  "requiredApprovals": 0
+}
