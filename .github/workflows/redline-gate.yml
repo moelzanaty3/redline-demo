@@ -1,6 +1,6 @@
 # Managed by Redline. Regenerate with `redline init --repair`; edits here are overwritten.
 #
-# A vendored copy of the Redline gate, written by redlinegate 0.2.6.
+# A vendored copy of the Redline gate, written by redlinegate 0.2.7.
 #
 # This workflow runs from the pull request's own head commit, so a pull request
 # that edits this file changes the gate that is judging it — including standing
@@ -62,12 +62,13 @@ on:
       exemption-enforcement:
         description: >-
           What a soft-fail label without a valid "## Redline exemption" block does.
-          `warn` accepts it and says what is missing; `require` refuses it. Repos move
-          from warn to require one standards version after the block was introduced, so
-          nobody's open pull request is failed by a rule that did not exist when they
-          opened it.
+          `require` refuses it; `warn` accepts it and says what is missing. `warn` was
+          the default while the block was new (0.0.2), so nobody's open pull request
+          was failed by a rule that did not exist when they opened it. That grace is
+          over. It only decides anything at a blocking rung: below one, a failing
+          process check does not stop a merge either way.
         type: string
-        default: warn
+        default: require
 
 permissions:
   contents: read
@@ -159,7 +160,7 @@ jobs:
           BASE: ${{ github.event.pull_request.base.sha }}
           HEAD: ${{ github.event.pull_request.head.sha }}
           RUNG: ${{ inputs.rung }}
-          REDLINE_CLI_VERSION: '0.2.6'
+          REDLINE_CLI_VERSION: '0.2.7'
         run: |
           set -euo pipefail
           # Three dots: the diff against the merge base, not against the tip of
@@ -239,7 +240,7 @@ jobs:
           # changes gate behaviour with no pull request here — a vendored copy
           # (`redline init --gate-source local`) is stamped with a fixed version
           # instead and is the option for a repository that needs that control.
-          REDLINE_CLI_VERSION: '0.2.6'
+          REDLINE_CLI_VERSION: '0.2.7'
         run: |
           set -euo pipefail
 

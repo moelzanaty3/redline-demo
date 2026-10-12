@@ -264,9 +264,9 @@ git commit -m "docs: step 09, earn a stricter rung"
 git push
 ```
 
-### step-09, updated · Redline 0.2.6
+### step-09, updated · Redline 0.2.6 and 0.2.7
 
-0.2.6 merged the `warn` rung into `observe` and moved the gate's actions to their current major versions.
+0.2.6 merged the `warn` rung into `observe` and moved the gate's actions to their current major versions. 0.2.7 made the gate refuse a soft-fail label that has no valid exemption block (`exemption-enforcement: require`).
 
 ```bash
 git checkout main && git pull
@@ -280,4 +280,8 @@ git add -A
 git commit -m "chore(redline): 0.2.6, observe again now that warn is merged into it"
 git push -u origin step/09-three-rungs
 gh pr create --base main --head step/09-three-rungs --title "Step 09 · Updated for Redline 0.2.6"
+npx redlinegate@0.2.7 init --no-commit                   # vendored gate 0.2.6 -> 0.2.7
+git add -A
+git commit -m "chore(redline): 0.2.7, exemptions require a block"
+git push
 ```
