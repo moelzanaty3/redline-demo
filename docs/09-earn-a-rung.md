@@ -90,6 +90,6 @@ error  the "warn" rung was merged into "observe" — it reported exactly what ob
        use --rung observe, or --rung block-blocker to start blocking on recorded evidence
 ```
 
-The same run moved the vendored gate to 0.2.6, with its actions on their current major versions.
+The same run moved the vendored gate to 0.2.6, with its actions on their current major versions. A second run on 0.2.7 moved it again: from 0.2.7 a soft-fail label with no valid exemption block is refused (`exemption-enforcement: require`), so step 08's bare label would no longer be accepted at a blocking rung.
 
 **This is the last step.** `git log --first-parent main` lists each step as one entry, and the README's build log has every command used to make them.
