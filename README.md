@@ -26,6 +26,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | [03 · Explain and fix](docs/03-explain-and-fix.md) | `step-03` | [#3](https://github.com/moelzanaty3/redline-demo/pull/3) | `explain` a rule, fix the code properly, and every check goes green |
 | [04 · A team rule](docs/04-team-rule.md) | `step-04` | [#4](https://github.com/moelzanaty3/redline-demo/pull/4) | Your team's own rule, in every assistant and in the review |
 | [05 · A big change needs an ADR](docs/05-adr.md) | `step-05` | [#5](https://github.com/moelzanaty3/redline-demo/pull/5) | Past 300 lines, the ADR check fails until a decision record is linked |
+| [06 · The security floor](docs/06-security-floor.md) | `step-06` | [#6](https://github.com/moelzanaty3/redline-demo/pull/6) | A vulnerable dependency fails the gate at every rung, and no label waives it |
 
 ## What you need
 
@@ -154,4 +155,32 @@ git commit -m "docs: step 05, a big change needs an ADR"
 git push
 git tag -a step-05 -m "Step 05: a big change needs an ADR"
 git push origin step-05
+```
+
+### step-06 · The security floor
+
+```bash
+git checkout -b step/06-security-floor step/05-adr
+pnpm add lodash@4.17.20 --save-exact
+pnpm add -D @types/lodash
+# written by hand: src/directory.ts, src/directory.test.ts
+pnpm test
+git add -A
+git commit -m "feat: group countries by initial, with lodash"
+git push -u origin step/06-security-floor
+gh pr create --base step/05-adr --head step/06-security-floor --title "Step 06 · The security floor"
+# Dependency review fails (two HIGH advisories), and so does the gate
+gh pr edit 6 --add-label redline-exempt      # the gate still fails: labels never waive the floor
+gh pr edit 6 --remove-label redline-exempt
+pnpm add lodash@4.18.1 --save-exact
+pnpm test
+git add -A
+git commit -m "fix(deps): lodash 4.18.1, past GHSA-35jh-r3h4-6jhm and GHSA-r5fr-rjxr-66jc"
+git push
+# written by hand: docs/06-security-floor.md, README and docs/README.md rows, this entry
+git add docs README.md
+git commit -m "docs: step 06, the security floor"
+git push
+git tag -a step-06 -m "Step 06: the security floor"
+git push origin step-06
 ```
