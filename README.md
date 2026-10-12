@@ -25,6 +25,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | [02 · Your first finding](docs/02-first-finding.md) | `step-02` | [#2](https://github.com/moelzanaty3/redline-demo/pull/2) | Four broken rules, found on your machine and in the pipeline |
 | [03 · Explain and fix](docs/03-explain-and-fix.md) | `step-03` | [#3](https://github.com/moelzanaty3/redline-demo/pull/3) | `explain` a rule, fix the code properly, and every check goes green |
 | [04 · A team rule](docs/04-team-rule.md) | `step-04` | [#4](https://github.com/moelzanaty3/redline-demo/pull/4) | Your team's own rule, in every assistant and in the review |
+| [05 · A big change needs an ADR](docs/05-adr.md) | `step-05` | [#5](https://github.com/moelzanaty3/redline-demo/pull/5) | Past 300 lines, the ADR check fails until a decision record is linked |
 
 ## What you need
 
@@ -127,4 +128,30 @@ git push
 gh pr create --base step/03-explain-and-fix --head step/04-team-rule --title "Step 04 · A team rule"
 git tag -a step-04 -m "Step 04: a team rule"
 git push origin step-04
+```
+
+### step-05 · A big change needs an ADR
+
+```bash
+git checkout -b step/05-adr step/04-team-rule
+# generated: src/countries.ts, from Intl.DisplayNames (Node's CLDR data)
+# written by hand: src/countries.test.ts, src/address.ts, src/address.test.ts
+pnpm test
+git add -A
+npx redlinegate@latest review --base step/04-team-rule
+git commit -m "feat: parse addresses, with the country checked against ISO 3166"
+git push -u origin step/05-adr
+gh pr create --base step/04-team-rule --head step/05-adr --title "Step 05 · A big change needs an ADR"
+# ADR required for significant changes fails: 352 changed lines, no ADR link
+# written by hand: docs/adr/0001-country-list-in-code.md
+git add docs/adr
+git commit -m "docs: ADR 0001, the country list lives in code"
+git push
+gh pr edit 5 --body-file pr-body.md   # adds "## Architecture decision" with the ADR link
+# written by hand: docs/05-adr.md, README and docs/README.md rows, this entry
+git add docs README.md
+git commit -m "docs: step 05, a big change needs an ADR"
+git push
+git tag -a step-05 -m "Step 05: a big change needs an ADR"
+git push origin step-05
 ```
