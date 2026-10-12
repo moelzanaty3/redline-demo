@@ -2,7 +2,13 @@
 
 A small TypeScript service for learning [Redline](https://redline-gate.vercel.app) one step at a time.
 
-Every step is one commit on `main`, tagged `step-NN`. Steps that involve CI were built as pull requests; open the linked pull request to read what the pipeline reported. Each step has a page in [`docs/`](docs/README.md) that explains what changed, the command that changed it, and what to look at.
+Every step is one entry in `main`'s first-parent history, tagged `step-NN`:
+
+```bash
+git log --first-parent --oneline main
+```
+
+Each step was built as a pull request; open the linked pull request to read what the pipeline reported. Steps 02–06 were merged into `main` through landing pull requests (#7–#11), but their checks and history live on the pull requests linked below. Each step has a page in [`docs/`](docs/README.md) that explains what changed, the command that changed it, and what to look at.
 
 ## Follow along
 
