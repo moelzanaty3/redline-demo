@@ -22,7 +22,7 @@
     "commandFiles, standardsVersion, cliVersion, onboardedAt, lastRunAt — Redline's own bookkeeping."
   ],
   "standardsVersion": "0.2.1",
-  "cliVersion": "0.2.3",
+  "cliVersion": "0.2.4",
   "host": "github",
   "pipeline": "github-actions",
   "profile": "tooling",
@@ -49,8 +49,8 @@
   "integrations": [],
   "pendingAdmin": [],
   "onboardedAt": "2026-10-11T18:56:39.977Z",
-  "lastRunAt": "2026-10-11T18:56:39.979Z",
-  "localRules": false,
+  "lastRunAt": "2026-10-12T08:21:33.329Z",
+  "localRules": true,
   "commandFiles": {
     ".github/prompts/redline-init.prompt.md": "sha256:c1835069c5779a1d4cc5992c92ff804b73da3440f1ea5bba221f0aaa84b4175d",
     ".github/prompts/redline-review.prompt.md": "sha256:5760598534c9b003f9a53f6e86e91afe00d896f05fcb998684a3c8ad6fe7c1e7",
@@ -64,7 +64,7 @@
   },
   "rung": "observe",
   "gateSource": "local",
-  "gateVersion": "0.2.3",
+  "gateVersion": "0.2.4",
   "docsBaseUrl": "",
   "requiredApprovals": 0
 }

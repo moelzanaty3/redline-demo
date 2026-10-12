@@ -30,4 +30,18 @@ Spec Kit is a separate tool with its own installer and its own templates.
 Redline does not create, edit or version its files; this section only tells a
 reviewer that the repository works this way.
 
+---
+
+# Repository-local rules
+
+The rules below come from this repository's own `.redline/local.md`, not from the org
+standard. Where one of them conflicts with anything above, the repository's own rules win
+here. Everything above that they do not contradict still applies.
+
+## Errors are returned, not logged
+
+This service is a library: the code that calls it decides what to log and where.
+
+- `local/no-console` — No `console.*` calls in `src/`. Throw an `Error` with a message that says what was wrong, and let the caller log it.
+
 <!-- REDLINE:END -->
