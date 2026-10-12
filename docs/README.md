@@ -11,3 +11,4 @@ Each page covers one tag. Check out the tag, read the page, then run what it say
 | 04 | [A team rule](04-team-rule.md) |
 | 05 | [A big change needs an ADR](05-adr.md) |
 | 06 | [The security floor](06-security-floor.md) |
+| 07 | [Make the gate a required check](07-blocking.md) |

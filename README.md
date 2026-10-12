@@ -27,6 +27,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | [04 · A team rule](docs/04-team-rule.md) | `step-04` | [#4](https://github.com/moelzanaty3/redline-demo/pull/4) | Your team's own rule, in every assistant and in the review |
 | [05 · A big change needs an ADR](docs/05-adr.md) | `step-05` | [#5](https://github.com/moelzanaty3/redline-demo/pull/5) | Past 300 lines, the ADR check fails until a decision record is linked |
 | [06 · The security floor](docs/06-security-floor.md) | `step-06` | [#6](https://github.com/moelzanaty3/redline-demo/pull/6) | A vulnerable dependency fails the gate at every rung, and no label waives it |
+| [07 · Make the gate a required check](docs/07-blocking.md) | `step-07` | [#12](https://github.com/moelzanaty3/redline-demo/pull/12) | `init --blocking`: a red gate now disables the merge button |
 
 ## What you need
 
@@ -183,4 +184,31 @@ git commit -m "docs: step 06, the security floor"
 git push
 git tag -a step-06 -m "Step 06: the security floor"
 git push origin step-06
+```
+
+### step-07 · Make the gate a required check
+
+```bash
+git checkout main && git pull
+npx redlinegate@latest init --blocking
+# settings applied; the pull request was refused because origin still has redline/onboard
+git branch step/07-blocking redline/onboard
+git branch -f redline/onboard origin/redline/onboard
+git checkout step/07-blocking
+git push -u origin step/07-blocking
+gh pr create --base main --head step/07-blocking --title "Step 07 · Make the gate a required check"
+pnpm add lodash@4.17.20 --save-exact
+git commit -am "chore(deps): pin lodash 4.17.20 to show a required gate blocking the merge"
+git push
+gh pr view 12 --json mergeStateStatus      # BLOCKED
+git revert --no-edit HEAD
+git push
+gh pr view 12 --json mergeStateStatus      # CLEAN
+# #12 merged; then, on a new branch from main:
+git checkout main && git pull && git checkout -b step/07-docs
+# written by hand: docs/07-blocking.md, README and docs/README.md rows, this entry
+git add docs README.md
+git commit -m "docs: step 07, make the gate a required check"
+git push -u origin step/07-docs
+gh pr create --base main --head step/07-docs --title "Step 07 · Docs"
 ```
