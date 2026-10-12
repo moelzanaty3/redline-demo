@@ -55,7 +55,7 @@ git push -u origin step/07-blocking
 gh pr create --base main --head step/07-blocking --title "Step 07 · Make the gate a required check"
 ```
 
-Merge the onboarding pull request with **Delete branch** ticked, and you'll never see this: `init` creates the branch fresh and opens the pull request itself.
+From Redline 0.2.6 this no longer happens. When `redline/onboard` is taken, locally or on `origin`, `init` uses the next free name (`redline/onboard-2`, …) and never moves an existing branch.
 
 ## See it block
 
