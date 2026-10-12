@@ -25,10 +25,10 @@ jobs:
       adr-diff-threshold: 300
       fail-on-dependency-severity: high
       soft-fail-labels: redline-exempt,redline-sync
-      # Written by `redline init --rung`. observe and warn report without blocking;
+      # Written by `redline init --rung`. observe reports without blocking;
       # block-blocker and block-high stop a merge. The security floor — dependency
       # review and the secret scan — is not on this ladder and blocks at every rung.
-      rung: warn
+      rung: observe
       # Gate jobs another tool in this repository already covers, written by
       # `redline init` from the tools you declared. A stood-down job is skipped
       # and the aggregate reads a skip as a pass. Empty runs every job.

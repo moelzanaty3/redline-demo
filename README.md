@@ -35,7 +35,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | [06 · The security floor](docs/06-security-floor.md) | `step-06` | [#6](https://github.com/moelzanaty3/redline-demo/pull/6) | A vulnerable dependency fails the gate at every rung, and no label waives it |
 | [07 · Make the gate a required check](docs/07-blocking.md) | `step-07` | [#12](https://github.com/moelzanaty3/redline-demo/pull/12) | `init --blocking`: a red gate now disables the merge button |
 | [08 · Exemptions](docs/08-exemption.md) | `step-08` | [#14](https://github.com/moelzanaty3/redline-demo/pull/14) | Merge past a failing process check on the record: a reason, an expiry and a scope |
-| [09 · Earn a stricter rung](docs/09-earn-a-rung.md) | `step-09` | [#15](https://github.com/moelzanaty3/redline-demo/pull/15) | Record evidence, rise to `warn`, and watch `block-blocker` be refused |
+| [09 · Earn a stricter rung](docs/09-earn-a-rung.md) | `step-09` | [#15](https://github.com/moelzanaty3/redline-demo/pull/15), [#16](https://github.com/moelzanaty3/redline-demo/pull/16) | Record evidence, and watch `block-blocker` be refused until it is earned |
 
 ## What you need
 
@@ -262,4 +262,22 @@ gh pr create --base main --head step/09-earn-a-rung --title "Step 09 · Earn a s
 git add docs README.md
 git commit -m "docs: step 09, earn a stricter rung"
 git push
+```
+
+### step-09, updated · Redline 0.2.6
+
+0.2.6 merged the `warn` rung into `observe` and moved the gate's actions to their current major versions.
+
+```bash
+git checkout main && git pull
+git checkout -b step/09-three-rungs
+npx redlinegate@0.2.6 init --no-commit                   # rung: warn -> observe, vendored gate 0.2.5 -> 0.2.6
+npx redlinegate@0.2.6 evidence                           # 7 of 20 pull requests, no corpus scores
+npx redlinegate@0.2.6 init --rung block-blocker --no-commit   # refused, with the three reasons
+pnpm test
+# written by hand: docs/09-earn-a-rung.md and docs/07-blocking.md, the README row, this entry
+git add -A
+git commit -m "chore(redline): 0.2.6, observe again now that warn is merged into it"
+git push -u origin step/09-three-rungs
+gh pr create --base main --head step/09-three-rungs --title "Step 09 · Updated for Redline 0.2.6"
 ```
