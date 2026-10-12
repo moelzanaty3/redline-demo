@@ -2,7 +2,13 @@
 
 A small TypeScript service for learning [Redline](https://redline-gate.vercel.app) one step at a time.
 
-Every step is one commit on `main`, tagged `step-NN`. Steps that involve CI were built as pull requests; open the linked pull request to read what the pipeline reported. Each step has a page in [`docs/`](docs/README.md) that explains what changed, the command that changed it, and what to look at.
+Every step is one entry in `main`'s first-parent history, tagged `step-NN`:
+
+```bash
+git log --first-parent --oneline main
+```
+
+Each step was built as a pull request; open the linked pull request to read what the pipeline reported. Steps 02–06 were merged into `main` through landing pull requests (#7–#11), but their checks and history live on the pull requests linked below. Each step has a page in [`docs/`](docs/README.md) that explains what changed, the command that changed it, and what to look at.
 
 ## Follow along
 
@@ -29,6 +35,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | [06 · The security floor](docs/06-security-floor.md) | `step-06` | [#6](https://github.com/moelzanaty3/redline-demo/pull/6) | A vulnerable dependency fails the gate at every rung, and no label waives it |
 | [07 · Make the gate a required check](docs/07-blocking.md) | `step-07` | [#12](https://github.com/moelzanaty3/redline-demo/pull/12) | `init --blocking`: a red gate now disables the merge button |
 | [08 · Exemptions](docs/08-exemption.md) | `step-08` | [#14](https://github.com/moelzanaty3/redline-demo/pull/14) | Merge past a failing process check on the record: a reason, an expiry and a scope |
+| [09 · Earn a stricter rung](docs/09-earn-a-rung.md) | `step-09` | [#15](https://github.com/moelzanaty3/redline-demo/pull/15) | Record evidence, rise to `warn`, and watch `block-blocker` be refused |
 
 ## What you need
 
@@ -231,5 +238,28 @@ gh pr edit 14 --body-file pr-body.md
 # written by hand: docs/08-exemption.md, README and docs/README.md rows, this entry
 git add docs README.md
 git commit -m "docs: step 08, exemptions"
+git push
+```
+
+### step-09 · Earn a stricter rung
+
+```bash
+git checkout -b step/09-earn-a-rung step/08-exemption
+npx redlinegate@latest evidence                          # none recorded
+npx redlinegate@latest init --rung warn --no-commit      # refused: 0 of 5 pull requests
+git checkout .redline.json                               # drop the lastRunAt-only change
+npx redlinegate@latest evidence record \
+  --source "redline-demo PRs #2-#6, #12 and #14: the gate's Deterministic policy job ran on each; all 4 findings raised on #2 were fixed in #3" \
+  --sample-size 7 --acted-on-rate 1
+npx redlinegate@latest init --rung warn --no-commit      # observe -> warn
+npx redlinegate@latest init --rung block-blocker --no-commit   # refused: 7 of 20, no corpus scores
+pnpm test
+git add .redline.json .github/workflows/redline.yml
+git commit -m "chore(redline): warn rung, on 7 reviewed pull requests"
+git push -u origin step/09-earn-a-rung
+gh pr create --base main --head step/09-earn-a-rung --title "Step 09 · Earn a stricter rung"
+# written by hand: docs/09-earn-a-rung.md, README and docs/README.md rows, this entry
+git add docs README.md
+git commit -m "docs: step 09, earn a stricter rung"
 git push
 ```

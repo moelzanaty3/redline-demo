@@ -49,7 +49,7 @@
   "integrations": [],
   "pendingAdmin": [],
   "onboardedAt": "2026-10-11T18:56:39.977Z",
-  "lastRunAt": "2026-10-12T08:57:07.069Z",
+  "lastRunAt": "2026-10-12T09:16:05.591Z",
   "localRules": true,
   "commandFiles": {
     ".github/prompts/redline-init.prompt.md": "sha256:c1835069c5779a1d4cc5992c92ff804b73da3440f1ea5bba221f0aaa84b4175d",
@@ -62,7 +62,15 @@
     ".cursor/commands/redline-review.md": "sha256:7bca1bb7d0bd6e4ded6bcb7a75788c003a8978bdc095ba630e434d8f4129fa0f",
     ".cursor/commands/redline-verify.md": "sha256:c541824adb98cdc0104c437dd9d4b1008a666679406d215f31eb2f551ce5a0b3"
   },
-  "rung": "observe",
+  "rung": "warn",
+  "evidence": {
+    "seedRecall": null,
+    "actedOnRate": 1,
+    "sampleSize": 7,
+    "falsePositives": null,
+    "recordedAt": "2026-10-12T09:15:57.679Z",
+    "source": "redline-demo PRs #2-#6, #12 and #14: the gate's Deterministic policy job ran on each; all 4 findings raised on #2 were fixed in #3"
+  },
   "gateSource": "local",
   "gateVersion": "0.2.5",
   "docsBaseUrl": "",
