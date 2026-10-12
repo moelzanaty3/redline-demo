@@ -28,6 +28,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | [05 · A big change needs an ADR](docs/05-adr.md) | `step-05` | [#5](https://github.com/moelzanaty3/redline-demo/pull/5) | Past 300 lines, the ADR check fails until a decision record is linked |
 | [06 · The security floor](docs/06-security-floor.md) | `step-06` | [#6](https://github.com/moelzanaty3/redline-demo/pull/6) | A vulnerable dependency fails the gate at every rung, and no label waives it |
 | [07 · Make the gate a required check](docs/07-blocking.md) | `step-07` | [#12](https://github.com/moelzanaty3/redline-demo/pull/12) | `init --blocking`: a red gate now disables the merge button |
+| [08 · Exemptions](docs/08-exemption.md) | `step-08` | [#14](https://github.com/moelzanaty3/redline-demo/pull/14) | Merge past a failing process check on the record: a reason, an expiry and a scope |
 
 ## What you need
 
@@ -211,4 +212,24 @@ git add docs README.md
 git commit -m "docs: step 07, make the gate a required check"
 git push -u origin step/07-docs
 gh pr create --base main --head step/07-docs --title "Step 07 · Docs"
+```
+
+### step-08 · Exemptions
+
+```bash
+git checkout -b step/08-exemption step/07-docs
+# by hand: loadUser renamed to parseUser in src/user.ts and src/user.test.ts
+pnpm test
+git commit -am "feat!: rename loadUser to parseUser, matching parseAddress"
+git push -u origin step/08-exemption
+gh pr create --base main --head step/08-exemption --title "Step 08 · Exemptions"   # "Rollback is safe" left unticked
+gh pr edit 14 --add-label redline-exempt        # warns: a label alone exempts nothing
+# written by hand: the "## Redline exemption" block, in pr-body.md
+npx redlinegate@latest exempt --body-file pr-body.md --scope checklist
+npx redlinegate@latest exempt --body-file pr-body.md --scope adr      # refused: out of scope
+gh pr edit 14 --body-file pr-body.md
+# written by hand: docs/08-exemption.md, README and docs/README.md rows, this entry
+git add docs README.md
+git commit -m "docs: step 08, exemptions"
+git push
 ```
