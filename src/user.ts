@@ -11,7 +11,7 @@ function isUser(value: unknown): value is User {
   )
 }
 
-export function loadUser(raw: string): User {
+export function parseUser(raw: string): User {
   const parsed: unknown = JSON.parse(raw)
   if (!isUser(parsed)) throw new Error('payload is not a User')
   return parsed
