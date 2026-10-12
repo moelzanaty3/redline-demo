@@ -1,6 +1,6 @@
 # Managed by Redline. Regenerate with `redline init --repair`; edits here are overwritten.
 #
-# A vendored copy of the Redline gate, written by redlinegate 0.2.4.
+# A vendored copy of the Redline gate, written by redlinegate 0.2.5.
 #
 # This workflow runs from the pull request's own head commit, so a pull request
 # that edits this file changes the gate that is judging it — including standing
@@ -154,7 +154,7 @@ jobs:
           BASE: ${{ github.event.pull_request.base.sha }}
           HEAD: ${{ github.event.pull_request.head.sha }}
           RUNG: ${{ inputs.rung }}
-          REDLINE_CLI_VERSION: '0.2.4'
+          REDLINE_CLI_VERSION: '0.2.5'
         run: |
           set -euo pipefail
           # Three dots: the diff against the merge base, not against the tip of
@@ -234,7 +234,7 @@ jobs:
           # changes gate behaviour with no pull request here — a vendored copy
           # (`redline init --gate-source local`) is stamped with a fixed version
           # instead and is the option for a repository that needs that control.
-          REDLINE_CLI_VERSION: '0.2.4'
+          REDLINE_CLI_VERSION: '0.2.5'
         run: |
           set -euo pipefail
 
