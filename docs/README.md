@@ -13,3 +13,4 @@ Each page covers one tag. Check out the tag, read the page, then run what it say
 | 06 | [The security floor](06-security-floor.md) |
 | 07 | [Make the gate a required check](07-blocking.md) |
 | 08 | [Exemptions](08-exemption.md) |
+| 09 | [Earn a stricter rung](09-earn-a-rung.md) |
