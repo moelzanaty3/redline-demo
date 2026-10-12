@@ -21,6 +21,7 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 | Step | Tag | Pull request | What you see |
 |---|---|---|---|
 | [00 · The starting point](docs/00-the-starting-point.md) | `step-00` | | A TypeScript service with tests and CI, before Redline |
+| [01 · Onboard with Redline](docs/01-onboard.md) | `step-01` | [#1](https://github.com/moelzanaty3/redline-demo/pull/1) | One command adds the rules, the review commands and a merge gate |
 
 ## What you need
 
@@ -29,3 +30,39 @@ Move to any step with `git checkout step-NN`, then read that step's page.
 - [git](https://git-scm.com/downloads)
 
 You don't need to install Redline. Every command runs it with `npx redlinegate@latest`.
+
+## How each step was built
+
+The exact commands, in order, so you can rebuild this repository yourself. Files written by hand are listed by name, and their contents are in the step's commit.
+
+### step-00 · The starting point
+
+```bash
+mkdir redline-demo && cd redline-demo
+git init -b main
+# written by hand: package.json, tsconfig.json, .gitignore, src/users.ts,
+#                  src/users.test.ts, .github/workflows/ci.yml, README.md, docs/
+pnpm install
+pnpm test
+git add -A
+git commit -m "chore: a TypeScript service with tests and CI, before Redline"
+git remote add origin git@github.com:moelzanaty3/redline-demo.git
+git push -u origin main
+git tag -a step-00 -m "Step 00: the starting point"
+git push origin step-00
+```
+
+### step-01 · Onboard with Redline
+
+```bash
+npx redlinegate@latest init --gate-source local
+# init wrote 21 files, applied the GitHub settings, committed on the branch
+# redline/onboard, pushed it and opened pull request #1 itself.
+git checkout redline/onboard
+# written by hand: docs/01-onboard.md, a row in the README and docs/README.md tables
+git add docs README.md
+git commit -m "docs: step 01, onboard with Redline"
+git push origin redline/onboard
+git tag -a step-01 -m "Step 01: onboard with Redline"
+git push origin step-01
+```
